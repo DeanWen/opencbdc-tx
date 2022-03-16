@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('hash_8cpp_source.html',''); initResiza
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="hash_8hpp.html">hash.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;crypto/sha3.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;crypto/sha256.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;cstring&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;iomanip&gt;</span></div>
@@ -126,17 +126,16 @@ $(document).ready(function(){initNavTree('hash_8cpp_source.html',''); initResiza
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="namespacecbdc.html#a683b1822c4294075ddecf27a8774d76e">   40</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="namespacecbdc.html#a683b1822c4294075ddecf27a8774d76e">hash_data</a>(<span class="keyword">const</span> std::byte* data, <span class="keywordtype">size_t</span> len) -&gt; <a class="code hl_typedef" href="namespacecbdc.html#ae259dc3000a4487dd87a2ee9662ba73e">hash_t</a> {</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_typedef" href="namespacecbdc.html#ae259dc3000a4487dd87a2ee9662ba73e">hash_t</a> ret;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        SHA3_256 sha;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        CSHA256 sha;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keyword">auto</span> data_vec = std::vector&lt;unsigned char&gt;(len);</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        std::memcpy(data_vec.data(), data, len);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        Span data_vec_span{(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)data_vec.data(), len};</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        sha.Write(data_vec_span);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        sha.Finalize(ret);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        sha.Write(data_vec.data(), len);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        sha.Finalize(ret.data());</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
 <div class="ttc" id="ahash_8hpp_html"><div class="ttname"><a href="hash_8hpp.html">hash.hpp</a></div></div>
 <div class="ttc" id="anamespacecbdc_html"><div class="ttname"><a href="namespacecbdc.html">cbdc</a></div><div class="ttdef"><b>Definition:</b> <a href="atomizer_2archiver_2client_8cpp_source.html#l00013">atomizer/archiver/client.cpp:13</a></div></div>
 <div class="ttc" id="anamespacecbdc_html_a683b1822c4294075ddecf27a8774d76e"><div class="ttname"><a href="namespacecbdc.html#a683b1822c4294075ddecf27a8774d76e">cbdc::hash_data</a></div><div class="ttdeci">auto hash_data(const std::byte *data, size_t len) -&gt; hash_t</div><div class="ttdoc">Calculates the SHA256 hash of the specified data.</div><div class="ttdef"><b>Definition:</b> <a href="hash_8cpp_source.html#l00040">hash.cpp:40</a></div></div>
